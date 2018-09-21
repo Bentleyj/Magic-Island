@@ -72,7 +72,6 @@ public:
     
     void draw(float x, float y) {
         ofImage::draw(x, y);
-        
         processed.draw(x, y+getHeight());
     }
 };

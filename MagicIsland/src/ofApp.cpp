@@ -12,19 +12,41 @@ void ofApp::setup(){
         ProcessedImage* img = new ProcessedImage();
         img->load(imageNames[i]);
         
-        Effect negative;
-        negative.loadShader("Shaders/negative");
-        negative.width = img->getWidth();
-        negative.height = img->getHeight();
+        Effect HSV;
+        HSV.loadShader("Shaders/hsv");
+        HSV.width = img->getWidth();
+        HSV.height = img->getHeight();
         
-        Effect darken;
-        darken.loadShader("Shaders/darken");
-        darken.width = img->getWidth();
-        darken.height = img->getHeight();
+        Effect Blur;
+        Blur.loadShader("Shaders/Blur");
+        Blur.width = img->getWidth();
+        Blur.height = img->getHeight();
         
-        img->addEffect(negative);
+        Effect BandW;
+        BandW.loadShader("Shaders/BandW");
+        BandW.width = img->getWidth();
+        BandW.height = img->getHeight();
+        
+        Effect sobel;
+        sobel.loadShader("Shaders/sobel");
+        sobel.width = img->getWidth();
+        sobel.height = img->getHeight();
+        
+//        img->addEffect(BandW);
+        
+//
+//        img->addEffect(sobel);
+        
+        img->addEffect(HSV);
+        
+        img->addEffect(Blur);
+        
+        img->addEffect(HSV);
 
-        img->addEffect(darken);
+
+
+        
+
         
         images.push_back(img);
     }
