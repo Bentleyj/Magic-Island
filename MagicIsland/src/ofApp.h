@@ -4,6 +4,8 @@
 #include "ofxCv.h"
 #include "ofxNestedFileLoader.h"
 #include "ofxGui.h"
+#include "Effect.hpp"
+#include "ProcessedImage.hpp"
 
 using namespace cv;
 using namespace ofxCv;
@@ -11,32 +13,6 @@ using namespace ofxCv;
 class ofApp : public ofBaseApp{
     
 	public:
-    
-        class ProcessedImage : public ofImage {
-            public:
-                ofImage processed;
-                Mat mat;
-            
-                void update() {
-                    ofImage::update();
-                    processed.update();
-                }
-            
-                void load(string imgPath) {
-                    ofImage::load(imgPath);
-                    processed.allocate(getWidth(), getHeight(), OF_IMAGE_GRAYSCALE);
-                    mat = toCv(processed);
-                    convertColor(getPixels(), processed, CV_RGB2GRAY);
-                    processed.update();
-                }
-            
-                void draw(float x, float y) {
-                    ofImage::draw(x, y);
-                    processed.draw(x, y+getHeight());
-                    drawMat(mat, x, y+getHeight()*2);
-                }
-        };
-    
 		void setup();
 		void update();
 		void draw();
@@ -53,11 +29,11 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        vector<ProcessedImage> images;
+        vector<ProcessedImage *> images;
     
         ofxPanel gui;
         ofParameter<float> cannyThreshMin;
         ofParameter<float> cannyThreshMax;
-    
+        
         ofxCv::ContourFinder contourFinder;
 };

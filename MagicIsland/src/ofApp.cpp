@@ -7,10 +7,25 @@ using namespace ofxCv;
 void ofApp::setup(){
     // first thing's first we're going to load all our images.
     ofxNestedFileLoader loader;
-    vector<string> imageNames = loader.load("testImages");
+    vector<string> imageNames = loader.load("TestImages");
     for(int i = 0; i < imageNames.size(); i++) {
-        ProcessedImage img;
-        img.load(imageNames[i]);
+        ProcessedImage* img = new ProcessedImage();
+        img->load(imageNames[i]);
+        
+        Effect negative;
+        negative.loadShader("Shaders/negative");
+        negative.width = img->getWidth();
+        negative.height = img->getHeight();
+        
+        Effect darken;
+        darken.loadShader("Shaders/darken");
+        darken.width = img->getWidth();
+        darken.height = img->getHeight();
+        
+        img->addEffect(negative);
+
+        img->addEffect(darken);
+        
         images.push_back(img);
     }
     
@@ -21,11 +36,8 @@ void ofApp::setup(){
     gui.loadFromFile(settingsPath);
     
     for(int i = 0; i < images.size(); i++) {
-//        images[i].mat *= 2.0;
-        Canny(images[i].mat, images[i].mat, cannyThreshMin, cannyThreshMax);
-        images[i].update();
+        images[i]->applyEffects();
     }
-    
 }
 
 //--------------------------------------------------------------
@@ -38,15 +50,15 @@ void ofApp::draw(){
     int x = 0;
     for(int i = 0; i < images.size(); i++) {
         float scale = 1.0;
-        if(images[i].getHeight()*3 > ofGetHeight()) {
-            scale = ofGetHeight() / (images[i].getHeight()*3);
+        if(images[i]->getHeight()*3 > ofGetHeight()) {
+            scale = ofGetHeight() / (images[i]->getHeight()*3);
         }
         ofPushMatrix();
         ofTranslate(x, 0);
         ofScale(scale, scale);
-        images[i].draw(0, 0);
+        images[i]->draw(0, 0);
         ofPopMatrix();
-        x += images[i].getWidth() * scale;
+        x += images[i]->getWidth() * scale;
     }
     
     gui.draw();
