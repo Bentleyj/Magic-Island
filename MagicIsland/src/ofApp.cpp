@@ -93,7 +93,19 @@ void ofApp::draw(){
         ofScale(scale, scale);
         images[i]->draw(0, 0);
         contourFinder.findContours(images[i]->processed);
-        contourFinder.draw();
+        ofPushStyle();
+        vector<ofPolyline> ps = contourFinder.getPolylines();
+        for(int k = 0; k < ps.size(); k++) {
+            ofSetColor(k * 63.75, 0.0, 127);
+            ps[k].draw();
+            ofSetColor(255, 0, 0);
+            vector<ofPoint> vs = ps[k].getVertices();
+            for(int j = 0; j < vs.size(); j++) {
+                ofDrawCircle(vs[j], 1);
+            }
+        }
+        ofPopStyle();
+//        contourFinder.draw();
         ofPopMatrix();
         x += images[i]->getWidth() * scale;
     }
