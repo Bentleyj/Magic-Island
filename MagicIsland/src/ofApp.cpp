@@ -9,7 +9,7 @@ void ofApp::setup(){
     ofxNestedFileLoader loader;
     vector<string> imageNames = loader.load("TestImages");
     for(int i = 0; i < imageNames.size(); i++) {
-        ProcessedImage* img = new ProcessedImage();
+        CoastlineImage* img = new CoastlineImage();
         img->load(imageNames[i]);
         
         Effect HSV;
@@ -56,6 +56,10 @@ void ofApp::setup(){
         images.push_back(img);
     }
     
+    for(int i = 0; i < images.size(); i++) {
+        images[i]->reset();
+    }
+    
     string settingsPath = "settings/settings.xml";
     gui.setup("Gui", settingsPath);
     gui.add(threshMin.set("Threshold Min", 0.5, 0, 1.0));
@@ -66,13 +70,6 @@ void ofApp::setup(){
     blurAmount.addListener(this, &ofApp::onParamChanged);
 
     gui.loadFromFile(settingsPath);
-    
-    contourFinder.setMinAreaRadius(10);
-    contourFinder.setMaxAreaRadius(500);
-
-    for(int i = 0; i < images.size(); i++) {
-        images[i]->reset();
-    }
 }
 
 //--------------------------------------------------------------
@@ -92,22 +89,23 @@ void ofApp::draw(){
         ofTranslate(x, 0);
         ofScale(scale, scale);
         images[i]->draw(0, 0);
-        contourFinder.findContours(images[i]->processed);
-        ofPushStyle();
-        vector<ofPolyline> ps = contourFinder.getPolylines();
-        for(int k = 0; k < ps.size(); k++) {
-            ofSetColor(k * 63.75, 0.0, 127);
-            ps[k].draw();
-            ofSetColor(255, 0, 0);
-            vector<ofPoint> vs = ps[k].getVertices();
-            for(int j = 0; j < vs.size(); j++) {
-                ofDrawCircle(vs[j], 1);
-            }
-        }
+        images[i]->drawCoastline();
+//        contourFinder.findContours(images[i]->processed);
+//        ofPushStyle();
+//        vector<ofPolyline> ps = contourFinder.getPolylines();
+//        for(int k = 0; k < ps.size(); k++) {
+//            ofSetColor(k * 63.75, 0.0, 127);
+//            ps[k].draw();
+//            ofSetColor(255, 0, 0);
+//            vector<ofPoint> vs = ps[k].getVertices();
+//            for(int j = 0; j < vs.size(); j++) {
+//                ofDrawCircle(vs[j], 1);
+//            }
+//        }
         ofPopStyle();
 //        contourFinder.draw();
         ofPopMatrix();
-        x += images[i]->getWidth() * scale;
+        x += images[i]->getWidth() * scale + 10;
     }
     
     gui.draw();
@@ -117,14 +115,13 @@ void ofApp::draw(){
 void ofApp::onParamChanged(float & param) {
     for(int i = 0; i < images.size(); i++) {
         images[i]->reset();
+        images[i]->findCoastline();
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    for(int i = 0; i < images.size(); i++) {
-        images[i]->reset();
-    }
+
 }
 
 //--------------------------------------------------------------
