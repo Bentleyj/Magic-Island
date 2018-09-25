@@ -27,22 +27,29 @@ void ofApp::setup(){
         BandW.width = img->getWidth();
         BandW.height = img->getHeight();
         
+        Effect threshold;
+        threshold.loadShader("Shaders/sandwichThreshold");
+        threshold.addUniform("threshMin", &threshMin);
+        threshold.addUniform("threshMax", &threshMax);
+        threshold.width = img->getWidth();
+        threshold.height = img->getHeight();
+        
         Effect sobel;
         sobel.loadShader("Shaders/sobel");
         sobel.width = img->getWidth();
         sobel.height = img->getHeight();
         
         img->addEffect(HSV);
-        
-        img->addEffect(HSV);
+        img->addEffect(threshold);
+        img->addEffect(sobel);
 
         images.push_back(img);
     }
     
     string settingsPath = "settings/settings.xml";
     gui.setup("Gui", settingsPath);
-    gui.add(cannyThreshMin.set("Canny Thesh Min", 0, 0, 255));
-    gui.add(cannyThreshMax.set("Canny Thesh Max", 255, 0, 255));
+    gui.add(threshMin.set("Threshold Min", 0.5, 0, 1.0));
+    gui.add(threshMax.set("Threshold Max", 0.5, 0, 1.0));
     gui.loadFromFile(settingsPath);
     
     for(int i = 0; i < images.size(); i++) {
@@ -76,7 +83,9 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+    for(int i = 0; i < images.size(); i++) {
+        images[i]->reset();
+    }
 }
 
 //--------------------------------------------------------------

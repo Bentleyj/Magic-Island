@@ -47,7 +47,7 @@ void main() {
     vec2 uvAbs = uv * resolution;
 
     float s = sobel(inputTexture, uvAbs);
-    vec3 tc = smoothstep(vec3(0), vec3(1), vec3(s));
+    vec3 tc = smoothstep(vec3(0), vec3(1), vec3(s*2.0));
     
     gl_FragColor = vec4(tc, 1.0);
 }

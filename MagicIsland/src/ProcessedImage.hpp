@@ -74,6 +74,19 @@ public:
         ofImage::draw(x, y);
         processed.draw(x, y+getHeight());
     }
+    
+    void reset() {
+        srcBuffer->begin();
+        ofImage::draw(0, 0);
+        srcBuffer->end();
+        
+        srcBuffer->updateTexture(0);
+        
+//        srcBuffer = &buf1;
+//        dstBuffer = &buf2;
+        
+        applyEffects();
+    }
 };
 
 #endif /* ProcessedImage_hpp */

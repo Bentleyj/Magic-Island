@@ -32,8 +32,7 @@ class ofApp : public ofBaseApp{
         vector<ProcessedImage *> images;
     
         ofxPanel gui;
-        ofParameter<float> cannyThreshMin;
-        ofParameter<float> cannyThreshMax;
+        ofParameter<float> threshMin, threshMax;
         
         ofxCv::ContourFinder contourFinder;
 };
