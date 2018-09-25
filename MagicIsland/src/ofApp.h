@@ -16,6 +16,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void onParamChanged(float & param);
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -32,7 +33,7 @@ class ofApp : public ofBaseApp{
         vector<ProcessedImage *> images;
     
         ofxPanel gui;
-        ofParameter<float> threshMin, threshMax;
+        ofParameter<float> threshMin, threshMax, blurAmount;
         
         ofxCv::ContourFinder contourFinder;
 };

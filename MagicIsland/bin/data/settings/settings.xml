@@ -1,4 +1,6 @@
 <group>
-	<Threshold_Min>0.3</Threshold_Min>
-	<Threshold_Max>0.69</Threshold_Max>
+	<Threshold_Min>0.33</Threshold_Min>
+	<Threshold_Max>0.665</Threshold_Max>
+<group/>
+<Blur_Amount>2.4</Blur_Amount>
 </group>

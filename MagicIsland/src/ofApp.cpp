@@ -17,10 +17,17 @@ void ofApp::setup(){
         HSV.width = img->getWidth();
         HSV.height = img->getHeight();
         
-        Effect Blur;
-        Blur.loadShader("Shaders/Blur");
-        Blur.width = img->getWidth();
-        Blur.height = img->getHeight();
+        Effect BlurHor;
+        BlurHor.loadShader("Shaders/BlurHor");
+        BlurHor.addUniform("blurAmnt", &blurAmount);
+        BlurHor.width = img->getWidth();
+        BlurHor.height = img->getHeight();
+        
+        Effect BlurVert;
+        BlurVert.loadShader("Shaders/BlurVert");
+        BlurVert.addUniform("blurAmnt", &blurAmount);
+        BlurVert.width = img->getWidth();
+        BlurVert.height = img->getHeight();
         
         Effect BandW;
         BandW.loadShader("Shaders/BandW");
@@ -39,6 +46,9 @@ void ofApp::setup(){
         sobel.width = img->getWidth();
         sobel.height = img->getHeight();
         
+        img->addEffect(BlurHor);
+        img->addEffect(BlurVert);
+
         img->addEffect(HSV);
         img->addEffect(threshold);
         img->addEffect(sobel);
@@ -50,6 +60,11 @@ void ofApp::setup(){
     gui.setup("Gui", settingsPath);
     gui.add(threshMin.set("Threshold Min", 0.5, 0, 1.0));
     gui.add(threshMax.set("Threshold Max", 0.5, 0, 1.0));
+    gui.add(blurAmount.set("Blur Amount", 1, 0, 10));
+    threshMin.addListener(this, &ofApp::onParamChanged);
+    threshMax.addListener(this, &ofApp::onParamChanged);
+    blurAmount.addListener(this, &ofApp::onParamChanged);
+
     gui.loadFromFile(settingsPath);
     
     for(int i = 0; i < images.size(); i++) {
@@ -79,6 +94,13 @@ void ofApp::draw(){
     }
     
     gui.draw();
+}
+
+//--------------------------------------------------------------
+void ofApp::onParamChanged(float & param) {
+    for(int i = 0; i < images.size(); i++) {
+        images[i]->reset();
+    }
 }
 
 //--------------------------------------------------------------
