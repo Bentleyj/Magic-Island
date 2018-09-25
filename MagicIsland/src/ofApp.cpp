@@ -89,7 +89,6 @@ void ofApp::draw(){
         ofTranslate(x, 0);
         ofScale(scale, scale);
         images[i]->draw(0, 0);
-        images[i]->drawCoastline();
 //        contourFinder.findContours(images[i]->processed);
 //        ofPushStyle();
 //        vector<ofPolyline> ps = contourFinder.getPolylines();

@@ -22,12 +22,14 @@ public:
         contourFinder.setMaxAreaRadius(500);
     }
     
+    void draw(float x, float y);
+
+    
     ContourFinder contourFinder;
     
     vector<ofPolyline> polylines;
     ofPolyline coastline;
     ofPoint p1, p2;
-    int index;
     
     void findCoastline();
     
@@ -37,6 +39,10 @@ private:
     ofPolyline getLongestPolyline();
     void findContoursOfProcessedImage();
     void trimCornerPoints();
+    void trimEdgePoints();
+    
+    float trimThreshold = 20;
+
 };
 
 #endif /* CoastlineImage_hpp */
