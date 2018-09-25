@@ -32,22 +32,10 @@ void ofApp::setup(){
         sobel.width = img->getWidth();
         sobel.height = img->getHeight();
         
-//        img->addEffect(BandW);
-        
-//
-//        img->addEffect(sobel);
-        
         img->addEffect(HSV);
-        
-        img->addEffect(Blur);
         
         img->addEffect(HSV);
 
-
-
-        
-
-        
         images.push_back(img);
     }
     
