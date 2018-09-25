@@ -34,6 +34,7 @@ class ofApp : public ofBaseApp{
     
         ofxPanel gui;
         ofParameter<float> threshMin, threshMax, blurAmount;
-        
+    
         ofxCv::ContourFinder contourFinder;
+//        cv::LineSegmentDetector det;
 };

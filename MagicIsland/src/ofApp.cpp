@@ -51,7 +51,7 @@ void ofApp::setup(){
 
         img->addEffect(HSV);
         img->addEffect(threshold);
-        img->addEffect(sobel);
+//        img->addEffect(sobel);
 
         images.push_back(img);
     }
@@ -67,8 +67,11 @@ void ofApp::setup(){
 
     gui.loadFromFile(settingsPath);
     
+    contourFinder.setMinAreaRadius(10);
+    contourFinder.setMaxAreaRadius(500);
+
     for(int i = 0; i < images.size(); i++) {
-        images[i]->applyEffects();
+        images[i]->reset();
     }
 }
 
@@ -89,6 +92,8 @@ void ofApp::draw(){
         ofTranslate(x, 0);
         ofScale(scale, scale);
         images[i]->draw(0, 0);
+        contourFinder.findContours(images[i]->processed);
+        contourFinder.draw();
         ofPopMatrix();
         x += images[i]->getWidth() * scale;
     }
