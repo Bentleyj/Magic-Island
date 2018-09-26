@@ -26,6 +26,7 @@ void Effect::applyEffect() {
     for(auto it = uniformFloats.begin(); it != uniformFloats.end(); it++) {
         shader.setUniform1f(it->first, *(it->second));
     }
+    
     // Set the float parameters
     for(auto it = uniformFloatParameters.begin(); it != uniformFloatParameters.end(); it++) {
         shader.setUniform1f(it->first, *(it->second));

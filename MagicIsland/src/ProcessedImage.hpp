@@ -19,61 +19,20 @@ public:
     ofFbo *srcBuffer, *dstBuffer;   // Pointers to buffers.
     ofVec2f resolution;             // Image Resolution.
     
-    void update() {
-        ofImage::update();
-        processed.update();
-    }
+    void load(string imgPath);      // Load an original image.
+
+    void update();                  // Update original and processed image textures.
     
-    void load(string imgPath) {
-        ofImage::load(imgPath);
-        resolution = ofVec2f(getWidth(), getHeight());
-        processed.allocate(getWidth(), getHeight(), OF_IMAGE_COLOR);
-        buf1.allocate(getWidth(), getHeight());
-        buf2.allocate(getWidth(), getHeight());
-        
-        buf1.begin();
-        ofImage::draw(0, 0);
-        buf1.end();
-        
-        buf1.updateTexture(0);
-        
-        srcBuffer = &buf1;
-        dstBuffer = &buf2;
-    }
+    void addEffect(Effect e);       // Add an Effect to be applied to the image. Effects are applied in order.
     
-    void addEffect(Effect e) {
-        e.addUniform("inputTexture", srcBuffer);
-        e.addUniform("resolution", &resolution);
-        effects.push_back(e);
-    }
+    void applyEffects();            // Apply all the effects in the order they were added.
     
-    void swapBuffers() {
-        ofFbo* tmpBuff = dstBuffer;
-        dstBuffer = srcBuffer;
-        srcBuffer = tmpBuff;
-        for(int i = 0; i < effects.size(); i++) {
-            effects[i].addUniform("inputTexture", srcBuffer);
-        }
-    }
+    void draw(float x, float y);    // Draw the image and the processed image underneath it.
     
-    void applyEffects() {
-        for(int i = 0; i < effects.size(); i++) {
-            dstBuffer->begin();
-            effects[i].applyEffect();
-            dstBuffer->end();
-            swapBuffers();
-            dstBuffer->updateTexture(0);
-            srcBuffer->updateTexture(0);
-        }
-        swapBuffers();
-        dstBuffer->getTexture().readToPixels(processed);
-        processed.update();
-    }
+    void reset();                   // Reset by loading the original image back in to the source buffer and applying the effects again.
     
-    void draw(float x, float y) {
-        ofImage::draw(x, y);
-        processed.draw(x, y+getHeight());
-    }
+protected:
+    void swapBuffers();             // Swap the source and destination buffer. (used internally only)
 };
 
 #endif /* ProcessedImage_hpp */

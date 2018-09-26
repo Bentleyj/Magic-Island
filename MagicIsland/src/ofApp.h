@@ -5,7 +5,7 @@
 #include "ofxNestedFileLoader.h"
 #include "ofxGui.h"
 #include "Effect.hpp"
-#include "ProcessedImage.hpp"
+#include "CoastlineImage.hpp"
 
 using namespace cv;
 using namespace ofxCv;
@@ -16,6 +16,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void onParamChanged(float & param);
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -29,11 +30,10 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        vector<ProcessedImage *> images;
+        vector<CoastlineImage *> images;
     
         ofxPanel gui;
-        ofParameter<float> cannyThreshMin;
-        ofParameter<float> cannyThreshMax;
-        
+        ofParameter<float> threshMin, threshMax, blurAmount, trimThreshold;
+    
         ofxCv::ContourFinder contourFinder;
 };

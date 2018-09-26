@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F996BC299B197D0BB0F729B /* ofxNestedFileLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 23A1C37E36041498070B7E4D /* ofxNestedFileLoader.cpp */; };
 		10B69DE456AED1288FC9316B /* Tracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A810DF70319A10353588F5DB /* Tracker.cpp */; };
+		140F10CB215A61A200954402 /* CoastlineImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 140F10C9215A61A200954402 /* CoastlineImage.cpp */; };
 		14DAA03A21552961008E700D /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14DAA03821552961008E700D /* Effect.cpp */; };
 		14DAA03D21553033008E700D /* ProcessedImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14DAA03B21553033008E700D /* ProcessedImage.cpp */; };
 		169D3C72FDE6C5590A1616F5 /* ofxCvFloatImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A03390302D5A2C9F0E4AB /* ofxCvFloatImage.cpp */; };
@@ -91,6 +92,8 @@
 		1054B4574F75C1F693C147C6 /* optical_flow.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = optical_flow.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/videostab/optical_flow.hpp; sourceTree = SOURCE_ROOT; };
 		114B872696817CC33990FC83 /* imgproc.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = imgproc.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/imgproc/imgproc.hpp; sourceTree = SOURCE_ROOT; };
 		1335F3F49E8A72CB04FA873D /* util_inl.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = util_inl.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/stitching/detail/util_inl.hpp; sourceTree = SOURCE_ROOT; };
+		140F10C9215A61A200954402 /* CoastlineImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CoastlineImage.cpp; sourceTree = "<group>"; };
+		140F10CA215A61A200954402 /* CoastlineImage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CoastlineImage.hpp; sourceTree = "<group>"; };
 		14DAA03821552961008E700D /* Effect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Effect.cpp; sourceTree = "<group>"; };
 		14DAA03921552961008E700D /* Effect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Effect.hpp; sourceTree = "<group>"; };
 		14DAA03B21553033008E700D /* ProcessedImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ProcessedImage.cpp; sourceTree = "<group>"; };
@@ -900,13 +903,15 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				14DAA03B21553033008E700D /* ProcessedImage.cpp */,
+				14DAA03C21553033008E700D /* ProcessedImage.hpp */,
 				14DAA03821552961008E700D /* Effect.cpp */,
 				14DAA03921552961008E700D /* Effect.hpp */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
-				14DAA03B21553033008E700D /* ProcessedImage.cpp */,
-				14DAA03C21553033008E700D /* ProcessedImage.hpp */,
+				140F10C9215A61A200954402 /* CoastlineImage.cpp */,
+				140F10CA215A61A200954402 /* CoastlineImage.hpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1036,6 +1041,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				140F10CB215A61A200954402 /* CoastlineImage.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				B6840996567E78436F7ECFAB /* ETF.cpp in Sources */,
