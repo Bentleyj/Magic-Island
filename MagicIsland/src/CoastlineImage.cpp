@@ -19,8 +19,11 @@ void CoastlineImage::findCoastline() {
     coastline = getLongestPolyline();
     coastline.setClosed(false);
     trimEdgePoints();
-    p1 = coastline.getVertices()[0];
-    p2 = coastline.getVertices()[coastline.getVertices().size() - 1];
+    if(coastline.getVertices().size() > 0) {
+        p1 = coastline.getVertices()[0];
+        p2 = coastline.getVertices()[coastline.getVertices().size() - 1];
+    }
+
     
     cropBuffer.clear();
     cropBuffer.allocate(getWidth() - 2 * trimThreshold, getHeight() - 2 * trimThreshold);
@@ -95,6 +98,7 @@ void CoastlineImage::trimEdgePoints() {
 
 void CoastlineImage::draw(float x, float y) {
     ofPushMatrix();
+//    ProcessedImage::draw(x, y);
     cropped.draw(x, y);
 //    drawCoastline();
     ofPopMatrix();

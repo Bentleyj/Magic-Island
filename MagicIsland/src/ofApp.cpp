@@ -81,7 +81,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofPushMatrix();
-    ofScale(0.5, 0.5);
+    ofScale(0.3, 0.3);
     float x, y;
     x = y = 0;
     for(int i = 0; i < images.size(); i++) {
@@ -90,8 +90,7 @@ void ofApp::draw(){
             x += diff.x;
             y += diff.y;
         }
-//        x += 100;
-        float scale = 1.0;
+//        x += images[i]->getWidth();
         ofPushMatrix();
         ofTranslate(x, y);
         images[i]->draw(0, 0);
