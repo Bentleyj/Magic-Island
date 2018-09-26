@@ -33,7 +33,7 @@ class ofApp : public ofBaseApp{
         vector<CoastlineImage *> images;
     
         ofxPanel gui;
-        ofParameter<float> threshMin, threshMax, blurAmount;
+        ofParameter<float> threshMin, threshMax, blurAmount, trimThreshold;
     
         ofxCv::ContourFinder contourFinder;
 };

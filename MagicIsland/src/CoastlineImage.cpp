@@ -19,6 +19,23 @@ void CoastlineImage::findCoastline() {
     coastline = getLongestPolyline();
     coastline.setClosed(false);
     trimEdgePoints();
+    p1 = coastline.getVertices()[0];
+    p2 = coastline.getVertices()[coastline.getVertices().size() - 1];
+    
+    cropBuffer.clear();
+    cropBuffer.allocate(getWidth() - 2 * trimThreshold, getHeight() - 2 * trimThreshold);
+    cropped.allocate(cropBuffer.getWidth(), cropBuffer.getHeight(), OF_IMAGE_COLOR);
+    
+    cropBuffer.begin();
+    ofPushMatrix();
+    ofImage::drawSubsection(0, 0, getWidth() - trimThreshold*2, getHeight() - trimThreshold*2, trimThreshold, trimThreshold);
+    ofPopMatrix();
+    
+    cropBuffer.end();
+    
+    cropBuffer.readToPixels(cropped);
+    cropped.update();
+    
 }
 
 void CoastlineImage::trimCornerPoints() {
@@ -66,6 +83,10 @@ void CoastlineImage::trimEdgePoints() {
         }
     }
     
+    for(int i = 0; i < vs.size(); i++) {
+        vs[i] -= ofPoint(trimThreshold, trimThreshold);
+    }
+    
     coastline.clear();
     coastline.addVertices(vs);
     
@@ -74,9 +95,8 @@ void CoastlineImage::trimEdgePoints() {
 
 void CoastlineImage::draw(float x, float y) {
     ofPushMatrix();
-    ofImage::drawSubsection(x, y, getWidth() - trimThreshold, getHeight() - trimThreshold, trimThreshold, trimThreshold);
-    ofTranslate(-trimThreshold, -trimThreshold);
-    drawCoastline();
+    cropped.draw(x, y);
+//    drawCoastline();
     ofPopMatrix();
 }
 
@@ -84,10 +104,14 @@ void CoastlineImage::drawCoastline() {
     ofPushStyle();
     coastline.draw();
     vector<ofPoint> vs = coastline.getVertices();
-    ofSetColor(255, 0, 0);
     for(int i = 0; i < vs.size(); i++) {
+        ofSetColor(255.0 / vs.size() * i, 0, 0);
         ofDrawCircle(vs[i], 4);
     }
+    ofSetColor(255, 255 ,0);
+    ofDrawCircle(p1, 4);
+    ofSetColor(0, 255 ,255);
+    ofDrawCircle(p2, 4);
     ofPopStyle();
 }
 

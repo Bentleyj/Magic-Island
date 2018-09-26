@@ -51,7 +51,6 @@ void ofApp::setup(){
 
         img->addEffect(HSV);
         img->addEffect(threshold);
-//        img->addEffect(sobel);
 
         images.push_back(img);
     }
@@ -65,9 +64,11 @@ void ofApp::setup(){
     gui.add(threshMin.set("Threshold Min", 0.5, 0, 1.0));
     gui.add(threshMax.set("Threshold Max", 0.5, 0, 1.0));
     gui.add(blurAmount.set("Blur Amount", 1, 0, 10));
+    gui.add(trimThreshold.set("Trim Threshold", 20, 0, 50));
     threshMin.addListener(this, &ofApp::onParamChanged);
     threshMax.addListener(this, &ofApp::onParamChanged);
     blurAmount.addListener(this, &ofApp::onParamChanged);
+    trimThreshold.addListener(this, &ofApp::onParamChanged);
 
     gui.loadFromFile(settingsPath);
 }
@@ -79,40 +80,32 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    int x = 0;
+    ofPushMatrix();
+    ofScale(0.5, 0.5);
+    float x, y;
+    x = y = 0;
     for(int i = 0; i < images.size(); i++) {
-        float scale = 1.0;
-        if(images[i]->getHeight()*3 > ofGetHeight()) {
-            scale = ofGetHeight() / (images[i]->getHeight()*3);
+        if(i > 0) {
+            ofVec2f diff = images[i-1]->p2 - images[i]->p1;
+            x += diff.x;
+            y += diff.y;
         }
+//        x += 100;
+        float scale = 1.0;
         ofPushMatrix();
-        ofTranslate(x, 0);
-        ofScale(scale, scale);
+        ofTranslate(x, y);
         images[i]->draw(0, 0);
-//        contourFinder.findContours(images[i]->processed);
-//        ofPushStyle();
-//        vector<ofPolyline> ps = contourFinder.getPolylines();
-//        for(int k = 0; k < ps.size(); k++) {
-//            ofSetColor(k * 63.75, 0.0, 127);
-//            ps[k].draw();
-//            ofSetColor(255, 0, 0);
-//            vector<ofPoint> vs = ps[k].getVertices();
-//            for(int j = 0; j < vs.size(); j++) {
-//                ofDrawCircle(vs[j], 1);
-//            }
-//        }
         ofPopStyle();
-//        contourFinder.draw();
         ofPopMatrix();
-        x += images[i]->getWidth() * scale + 10;
     }
-    
+    ofPopMatrix();
     gui.draw();
 }
 
 //--------------------------------------------------------------
 void ofApp::onParamChanged(float & param) {
     for(int i = 0; i < images.size(); i++) {
+        images[i]->setTrimThreshold(trimThreshold);
         images[i]->reset();
         images[i]->findCoastline();
     }

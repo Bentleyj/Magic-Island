@@ -23,7 +23,6 @@ public:
     }
     
     void draw(float x, float y);
-
     
     ContourFinder contourFinder;
     
@@ -35,14 +34,18 @@ public:
     
     void drawCoastline();
     
+    void setTrimThreshold(float trimThresh) { trimThreshold = trimThresh; };
+    
 private:
     ofPolyline getLongestPolyline();
     void findContoursOfProcessedImage();
     void trimCornerPoints();
     void trimEdgePoints();
     
-    float trimThreshold = 20;
-
+    float trimThreshold = 40;
+    
+    ofImage cropped;
+    ofFbo cropBuffer;
 };
 
 #endif /* CoastlineImage_hpp */
