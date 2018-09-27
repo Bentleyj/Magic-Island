@@ -11,6 +11,9 @@
 #include "ofMain.h"
 #include "ProcessedImage.hpp"
 #include "ofxCv.h"
+#include "CoastFrame.hpp"
+
+#define PI 3.14159265358979323846
 
 using namespace ofxCv;
 using namespace cv;
@@ -23,14 +26,15 @@ public:
     }
     
     void draw(float x, float y);
+    void draw(CoastFrame* cf);
     
     ContourFinder contourFinder;
     
     vector<ofPolyline> polylines;
     ofPolyline coastline;
-    ofPoint p1, p2;
+    ofPoint p1, p2, center;
     
-    void findCoastline();
+    int findCoastline();
     
     void drawCoastline();
     

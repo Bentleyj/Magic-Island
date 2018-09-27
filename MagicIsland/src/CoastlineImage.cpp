@@ -7,12 +7,20 @@
 
 #include "CoastlineImage.hpp"
 
+ofVec2f c2p(ofVec2f c) {
+    return { sqrt(c.x*c.x + c.y*c.y), atan2(c.y, c.x) };
+}
+
+ofVec2f p2c(ofVec2f p) {
+    return { p.x * cos(p.y), p.x * sin(p.y) };
+}
+
 void CoastlineImage::findContoursOfProcessedImage() {
     contourFinder.findContours(processed);
     polylines = contourFinder.getPolylines();
 }
 
-void CoastlineImage::findCoastline() {
+int CoastlineImage::findCoastline() {
     findContoursOfProcessedImage();
     // We could do this by finding the largest polyline and working from that.
     getLongestPolyline();
@@ -22,6 +30,8 @@ void CoastlineImage::findCoastline() {
     if(coastline.getVertices().size() > 0) {
         p1 = coastline.getVertices()[0];
         p2 = coastline.getVertices()[coastline.getVertices().size() - 1];
+        center = (p1 + p2) / 2.0;
+        return -1;
     }
 
     
@@ -39,6 +49,7 @@ void CoastlineImage::findCoastline() {
     cropBuffer.readToPixels(cropped);
     cropped.update();
     
+    return 1;
 }
 
 void CoastlineImage::trimCornerPoints() {
@@ -96,9 +107,36 @@ void CoastlineImage::trimEdgePoints() {
     ofPixels p = getPixels();
 }
 
+void CoastlineImage::draw(CoastFrame* cf) {
+    
+    ofVec2f cDiff = cf->center - ofVec2f(cf->x, cf->y) - center;
+
+    ofVec2f vMe = p1 - p2;
+    ofVec2f vCf = cf->p1- cf->p2;
+
+    float scale = (vCf.length() / vMe.length());
+    
+    ofVec2f p1Pol = c2p(p1 - center);
+    ofVec2f cp1Pol = c2p(cf->p1 - cf->center);
+    
+    float a =  cp1Pol.y - p1Pol.y;
+    
+    cf->buffer.begin();
+    ofPushMatrix();
+    ofTranslate(cDiff);
+    ofTranslate(center);
+    ofRotate(a * 180 / PI, 0, 0, 1);
+    ofScale(scale, scale);
+    ofTranslate(-center);
+    draw(0, 0);
+    ofPopMatrix();
+    cf->buffer.end();
+    
+    cf->buffer.draw(cf->x, cf->y);
+}
+
 void CoastlineImage::draw(float x, float y) {
     ofPushMatrix();
-//    ProcessedImage::draw(x, y);
     cropped.draw(x, y);
 //    drawCoastline();
     ofPopMatrix();

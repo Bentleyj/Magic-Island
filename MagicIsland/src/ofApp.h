@@ -6,6 +6,7 @@
 #include "ofxGui.h"
 #include "Effect.hpp"
 #include "CoastlineImage.hpp"
+#include "CoastFrame.hpp"
 
 using namespace cv;
 using namespace ofxCv;
@@ -31,6 +32,7 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
     
         vector<CoastlineImage *> images;
+        vector<CoastFrame *> coastFrames;
     
         ofxPanel gui;
         ofParameter<float> threshMin, threshMax, blurAmount, trimThreshold;

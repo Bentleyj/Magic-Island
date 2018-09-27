@@ -12,6 +12,7 @@
 		140F10CB215A61A200954402 /* CoastlineImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 140F10C9215A61A200954402 /* CoastlineImage.cpp */; };
 		14DAA03A21552961008E700D /* Effect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14DAA03821552961008E700D /* Effect.cpp */; };
 		14DAA03D21553033008E700D /* ProcessedImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14DAA03B21553033008E700D /* ProcessedImage.cpp */; };
+		14E9D5BA215CDE9200A1EDA5 /* CoastFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 14E9D5B8215CDE9200A1EDA5 /* CoastFrame.cpp */; };
 		169D3C72FDE6C5590A1616F5 /* ofxCvFloatImage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 7B6A03390302D5A2C9F0E4AB /* ofxCvFloatImage.cpp */; };
 		1CD33E884D9E3358252E82A1 /* ofxToggle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 907C5B5E104864A2D3A25745 /* ofxToggle.cpp */; };
 		1D5F3298C2FA073628012944 /* ofxCvContourFinder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C76DE5C29BDBD2CAA1DD0021 /* ofxCvContourFinder.cpp */; };
@@ -98,6 +99,8 @@
 		14DAA03921552961008E700D /* Effect.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Effect.hpp; sourceTree = "<group>"; };
 		14DAA03B21553033008E700D /* ProcessedImage.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ProcessedImage.cpp; sourceTree = "<group>"; };
 		14DAA03C21553033008E700D /* ProcessedImage.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ProcessedImage.hpp; sourceTree = "<group>"; };
+		14E9D5B8215CDE9200A1EDA5 /* CoastFrame.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CoastFrame.cpp; sourceTree = "<group>"; };
+		14E9D5B9215CDE9200A1EDA5 /* CoastFrame.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CoastFrame.hpp; sourceTree = "<group>"; };
 		15F2C6477A769C03A56D1401 /* ofxSlider.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxSlider.cpp; path = ../../../addons/ofxGui/src/ofxSlider.cpp; sourceTree = SOURCE_ROOT; };
 		178547E33CE398C7B59F08AB /* ContourFinder.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ContourFinder.h; path = ../../../addons/ofxCv/libs/ofxCv/include/ofxCv/ContourFinder.h; sourceTree = SOURCE_ROOT; };
 		17CE5A4068930946980DE788 /* stabilizer.hpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = stabilizer.hpp; path = ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/videostab/stabilizer.hpp; sourceTree = SOURCE_ROOT; };
@@ -912,6 +915,8 @@
 				E4B69E1F0A3A1BDC003C02F2 /* ofApp.h */,
 				140F10C9215A61A200954402 /* CoastlineImage.cpp */,
 				140F10CA215A61A200954402 /* CoastlineImage.hpp */,
+				14E9D5B8215CDE9200A1EDA5 /* CoastFrame.cpp */,
+				14E9D5B9215CDE9200A1EDA5 /* CoastFrame.hpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1045,6 +1050,7 @@
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,
 				B6840996567E78436F7ECFAB /* ETF.cpp in Sources */,
+				14E9D5BA215CDE9200A1EDA5 /* CoastFrame.cpp in Sources */,
 				F76B4A79BD8DE4854141CB47 /* fdog.cpp in Sources */,
 				EBCDE831EFAE08274E799C97 /* Calibration.cpp in Sources */,
 				6AABAB39E82AF5CFEA23A205 /* ContourFinder.cpp in Sources */,
